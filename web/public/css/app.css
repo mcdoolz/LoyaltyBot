@@ -1,0 +1,14 @@
+.uk-navbar-nav > li {
+    display: inline-block;
+    float: none;
+}
+
+.uk-navbar-nav > li > a > img {
+    width: 20px;
+}
+
+.flip {
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
+}

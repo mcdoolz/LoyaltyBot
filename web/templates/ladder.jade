@@ -1,0 +1,81 @@
+doctype html
+html(lang="en")
+    head
+        title= title
+        link(rel='stylesheet', href='/lib/uikit/css/uikit.almost-flat.min.css')
+        link(rel='stylesheet', href='/css/app.css')
+        script(src='/lib/jquery.js')
+        script(src='/lib/uikit/js/uikit.min.js')
+    body
+        div.uk-grid
+            div.uk-width-1-1
+                div.uk-grid
+                    div.uk-width-1-4
+                        img(src='/img/#{logo}')
+                    div.uk-width-2-4
+                        // bigimagelogo
+                        h1.uk-text-center #{title}<br/>#{slogan}
+                    div.uk-width-1-4
+                        img.flip(src='/img/#{logo}')
+            div.uk-width-1-1
+                nav.uk-navbar
+                    ul.uk-navbar-nav.uk-navbar-center
+                        li: a(href='http://www.twitch.tv/#{title}'): img(src='/img/twitch.png', alt='Stream')
+                        li: a(href='/') Home
+                        li: a(href='/ladder') Ladder
+                        li: a(href='#') Chat Stats
+                        li: a(href='http://www.twitter.com/#{twitter}'): img(src='/img/twitter.gif', alt='Twitter')
+            div.uk-width-1-1
+                div.uk-container.uk-container-center
+                    div.uk-grid
+                        br
+                        br
+                        div.uk-width-1-1
+                            div.uk-panel.uk-panel-box
+                                table.uk-table.uk-table-hover.uk-table-striped
+                                    caption Potato Farmer Ladder Rankings
+                                    thead
+                                        tr
+                                            th Viewer
+                                            th Potatoes
+                                    tbody
+                            ul.uk-pagination
+
+        script.
+            var perPage = 50,
+                data = !{JSON.stringify(rows)};
+
+            $(document).ready(function(){
+                // Create pagination buttons
+                for(var i = 1; i <= Math.ceil(data.length/perPage); i++) { 
+                    var button = $('<li page='+i+'></li>').append('<a>'+i+'</a>');
+                    button.on('click', function(){
+                        //get page
+                        var z = $(this).attr('page');
+                        
+                        // cleanup
+                        var temp = $('.uk-active').attr('page');
+                        $('.uk-active').removeClass('uk-active').empty().append('<a>'+temp+'</a>');
+                        $('table > tbody').empty(); 
+
+                        $(this).addClass('uk-active').empty().append('<span>'+z+'</span>'); 
+
+                        // slice(a, b): a = (n*(x-1))+1, b = n*x where n = perPage and x=curerntPage (skip +1 at end of a for splice)
+                        var a = (perPage*(z-1)),
+                            b = perPage*z;
+                            
+                        data.slice(a, b).forEach(function(element, index, array){
+                            $('table > tbody').append($('<tr></tr>').append('<td>'+element.user+'</td><td>'+element.points+'</td>'));
+                        });
+                    });
+
+                    $('.uk-pagination').append(button);
+                }
+
+                $('ul.uk-pagination > li').first().click();
+            });
+
+            function createPaginationButton(button) {
+            }
+
+

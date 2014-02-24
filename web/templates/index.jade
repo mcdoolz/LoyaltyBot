@@ -1,0 +1,64 @@
+doctype html
+html(lang="en")
+    head
+        title= title
+        link(rel='stylesheet', href='/lib/uikit/css/uikit.almost-flat.min.css')
+        link(rel='stylesheet', href='/css/app.css')
+        script(src='/lib/jquery.js')
+        script(src='/lib/uikit/js/uikit.min.js')
+    body
+        div.uk-grid
+            div.uk-width-1-1
+                div.uk-grid
+                    div.uk-width-1-4
+                        img(src='/img/#{logo}')
+                    div.uk-width-2-4
+                        // bigimagelogo
+                        h1.uk-text-center #{title}<br/>#{slogan}
+                    div.uk-width-1-4
+                        img.flip(src='/img/#{logo}')
+            div.uk-width-1-1
+                nav.uk-navbar
+                    ul.uk-navbar-nav.uk-navbar-center
+                        li: a(href='http://www.twitch.tv/#{title}'): img(src='/img/twitch.png', alt='Stream')
+                        li: a(href='/') Home
+                        li: a(href='/ladder') Ladder
+                        li: a(href='#') Chat Stats
+                        li: a(href='http://www.twitter.com/#{twitter}'): img(src='/img/twitter.gif', alt='Twitter')
+            div.uk-width-1-1
+                div.uk-container.uk-container-center
+                    div.uk-grid
+                        br
+                        br
+                        div.uk-width-1-2
+                            div.uk-panel.uk-panel-box
+                                h2 #{title} is  
+                                    span#status offline.
+                                div#streambox
+                        div.uk-width-1-2
+                            div.uk-panel.uk-panel-box
+                                table.uk-table.uk-table-hover.uk-table-striped
+                                    caption Top 10 Potato Farmers
+                                    thead
+                                        tr
+                                            th Viewer
+                                            th Potatoes
+                                    tbody
+                                        each row in rows
+                                            tr
+                                                td #{row.user}
+                                                td #{row.points}
+        
+        script.
+            $(document).ready(function(){
+                $.getJSON('https://api.twitch.tv/kraken/streams/#{title}?callback=?', function(data){
+                    if(data.stream) {
+                        $('#status').empty().append('online!');
+                        $("#streambox").append("<span>Game:</span> <span class='uk-text-bold uk-text-success'>"+data.stream.game+"</span><br/>");
+                        $("#streambox").append("<span>Viewers:</span> <span class='uk-text-bold uk-text-warning'>"+data.stream.viewers+"</span><br/>");
+                        $("#streambox").append("<br/><br/><img src='"+data.stream.preview.medium+"' />");;
+                    } else { 
+                        $("#streambox").append("<h3 class='uk-text-danger'>Offline</h3>");
+                    }
+                });
+            });
