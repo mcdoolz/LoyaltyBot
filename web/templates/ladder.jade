@@ -36,6 +36,7 @@ html(lang="en")
                                     caption Potato Farmer Ladder Rankings
                                     thead
                                         tr
+                                            th Rank
                                             th Viewer
                                             th Potatoes
                                     tbody
@@ -62,10 +63,11 @@ html(lang="en")
 
                         // slice(a, b): a = (n*(x-1))+1, b = n*x where n = perPage and x=curerntPage (skip +1 at end of a for splice)
                         var a = (perPage*(z-1)),
-                            b = perPage*z;
+                            b = perPage*z,
+                            pstart = z-1;
                             
                         data.slice(a, b).forEach(function(element, index, array){
-                            $('table > tbody').append($('<tr></tr>').append('<td>'+element.user+'</td><td>'+element.points+'</td>'));
+                            $('table > tbody').append($('<tr></tr>').append('<td>'+(a+index+1)+'</td><td>'+element.user+'</td><td>'+element.points+'</td>'));
                         });
                     });
 
