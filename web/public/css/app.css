@@ -12,3 +12,6 @@
     filter: FlipH;
     -ms-filter: "FlipH";
 }
+.uk-search-field, .uk-search-field::-moz-placeholder {
+    color: #FFFFFF;
+}

@@ -32,6 +32,10 @@ html(lang="en")
                         br
                         div.uk-width-1-1
                             div.uk-panel.uk-panel-box
+                                div.uk-badge.uk-float-right
+                                    form.uk-search
+                                        input(class='uk-search-field', type='search', placeholder='Search...')
+                                        button(class='uk-close', type='reset')
                                 table.uk-table.uk-table-hover.uk-table-striped
                                     caption Potato Farmer Ladder Rankings
                                     thead
@@ -47,6 +51,24 @@ html(lang="en")
                 data = !{JSON.stringify(rows)};
 
             $(document).ready(function(){
+
+                // Live search of the ladder listings
+                $('.uk-search-field').keyup(function() {
+                    var query = $(this).val();
+
+                    if(query.length > 2) {
+                        var temp = $('.uk-active').attr('page');
+                        $('.uk-active').removeClass('uk-active').empty().append('<a>'+temp+'</a>');
+                        $('table > tbody').empty();
+
+                        data.forEach(function(element, index, array) {
+                            if(element.user.search(new RegExp(query, 'i')) != -1) {
+                                $('table > tbody').append($('<tr></tr>').append('<td>'+index+'</td><td>'+element.user+'</td><td>'+element.points+'</td>'));
+                            }
+                        });
+                    }
+                });
+
                 // Create pagination buttons
                 for(var i = 1; i <= Math.ceil(data.length/perPage); i++) { 
                     var button = $('<li page='+i+'></li>').append('<a>'+i+'</a>');
@@ -63,8 +85,7 @@ html(lang="en")
 
                         // slice(a, b): a = (n*(x-1))+1, b = n*x where n = perPage and x=curerntPage (skip +1 at end of a for splice)
                         var a = (perPage*(z-1)),
-                            b = perPage*z,
-                            pstart = z-1;
+                            b = perPage*z;
                             
                         data.slice(a, b).forEach(function(element, index, array){
                             $('table > tbody').append($('<tr></tr>').append('<td>'+(a+index+1)+'</td><td>'+element.user+'</td><td>'+element.points+'</td>'));
@@ -74,10 +95,11 @@ html(lang="en")
                     $('.uk-pagination').append(button);
                 }
 
+                // When search input is cleared, go back to first page
+                $('.uk-close').on('click', function(){
+                    $('ul.uk-pagination > li').first().click();
+                });
+
+                // Show the first page when we load up
                 $('ul.uk-pagination > li').first().click();
             });
-
-            function createPaginationButton(button) {
-            }
-
-
