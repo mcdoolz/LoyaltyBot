@@ -1,0 +1,36 @@
+{
+  "name": "LoyaltyBot",
+  "description": "A TwitchTV Viewer Reward System",
+  "author": "Steve Saldivar <rvca18.dev@gmail.com>",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "development": "grunt development",
+    "production": "grunt production",
+    "clean": "grunt clean",
+    "server": "grunt nodemon"
+  },
+  "dependencies": {
+    "async": "~0.2.10",
+    "request": "~2.34.0",
+    "express": "~3.4.8",
+    "json2csv": "~2.2.1",
+    "sequelize": "^1.7.0",
+    "lodash": "^2.4.1",
+    "mysql": "^2.1.0",
+    "sqlite3": "^2.2.0",
+    "jade": "^1.3.0"
+  },
+  "devDependencies": {
+    "coffee-script": "~1.7.1",
+    "grunt-cli": "~0.1.13",
+    "grunt-contrib-coffee": "~0.10.1",
+    "grunt-contrib-copy": "~0.5.0",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-contrib-less": "~0.9.0",
+    "grunt-nodemon": "~0.2.0",
+    "grunt-concurrent": "~0.4.3"
+  }
+}
