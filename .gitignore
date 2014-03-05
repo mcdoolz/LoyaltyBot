@@ -10,3 +10,5 @@ Desktop.ini
 # Project
 logs
 node_modules
+users/supremortd.js
+*.sqlite
