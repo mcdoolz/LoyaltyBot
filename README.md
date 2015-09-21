@@ -4,21 +4,16 @@ A TwitchTV viewer reward system
 Written in JavaScript and Node
 
 ## Overview
-LoyaltyBot is a chat bot that allows you to reward viewers with loyalty points for hanging out on your stream. It's main purpose is to allow you, the broadcaster, to reward the viewers that are dedicated to watching your stream as opposed to the viewers that just stop by for a quick giveaway and leave.
+LoyaltyBot 'HmBU' (pronounced Himboo) Edition is a chat bot that allows you to reward viewers with EXPERIENCE points for hanging out on your stream. It's main purpose is to allow you, the broadcaster, to reward the viewers that are dedicated to watching your stream as opposed to the viewers that just stop by for a quick giveaway and leave (because fuck those guys).
 
 ####Features
-- Fully functioning auction and raffle systems
-- Double loyalty points for subscribers/loyal viewers
+- Possibly functioning auction and raffle systems (haven't tested them, but the codes there)
 
 ####Extras
-- Moderator commands (currently in development, semi functional)
-
-####Future Features/Extras
-- Free subscriber/paid non-subscriber Jukebox (still in development)
-- Stream title updates posted to twitter (still in development)
+- Moderator commands (semi functional)
 
 ## Basic Setup
-example.js
+Copy example.js and modify to suit your needs. Remove or comment the subscribers line; it's not necessary.
 
 ```javascript
 var loyaltybot = require('./../lib/initialize.js');
@@ -28,7 +23,6 @@ loyaltybot.initialize({
     twitch : {
         channel     : 'loyalty',
         bot         : {name: 'LoyaltyBot', password: 'loyalty!loyalty!loyalty!'},
-        subscribers : 'https://spreadsheets.google.com/feeds/list/****/od6/public/basic?alt=json'
     },
 
     // currency info
@@ -56,7 +50,7 @@ Twitch
 
 Currency
 - `name`: custom name for the loyalty points
-- `payrate`: how often to hand out loyalty points (in minutes)
+- `payrate`: how often to hand out an experience point (measured in minutes)
 - `host`: mysql database hostname/ip
 - `user`: username for the mysql database
 - `password`: password for the mysql database
@@ -66,39 +60,18 @@ Currency
 Optional
 - `commands`: enable/disable the ability to use moderator commands. boolean: accepts `true` or `false`
 
-## Preparing to Setup Your Channel's Bot
+## Preparing your bot
 ####Create a new bot account
 
-In order to use LoyaltyBot's features you will need to create a new [TwitchTV Account](http://www.twitch.tv/signup). You can name it anything you wish, all you need to do is pass the username/password to `bot.name` and `bot.password`
+In order to use LoyaltyBot's features you will need to create a new [TwitchTV Account](http://www.twitch.tv/signup). Done?  Cool, now get an oauth password for it.  Paste that into the configuration (look at example.js).
 
-####Create the subscriber/loyal viewer list on Google Docs
+####Subscribers?
 
-Since TwitchTV does not have subscriber information in their api, LoyaltyBot needs a way to obtain that information. That's where [Google Docs](http://docs.google.com/) comes in.
-
-In the following order:
-- Create a new spreadsheet
-- Set cell A1 as the header "Username"
-- Subscriber names (must be lower case) will then be in column A starting in cell A2 and below (Fig. 1)
-- Set the subscriber list to public and change the type to json (Fig. 2)
-
-Side Notes:
-- Even if you do not have a subscription button, you can still add loyal viewers to this list for the double loyalty point benefits.
-- Why Google Docs and not the MySQL database? Simplicity. It's easier to manually update a google doc spreadsheet daily
-- then it is to update a MySQL table.
-
-_Figure 1:_
-
-![Column Setup](http://i.imgur.com/eyQOwGz.jpg)
-
-_Figure 2:_
-
-![Create Link](http://i.imgur.com/jDU9xOR.jpg)
+All of this functionality is commented out.  I haven't deleted it; but I'm not using it so it doesn't work (or throw errors).
 
 ####Setting up MySQL tables
 
-LoyaltyBot stores all of the viewer info and moderator commands in a MySQL database and requires specifc table/field names.
-
-LoyaltyBot takes care of all table creation, however if by some chance you need to manually setup the tables the following contains information about them:
+Create the DB, the script will create its own tables; however if by some chance you need to manually setup the tables the following contains information about them:
 
 Viewer
 - Table Name: `viewers`
@@ -107,8 +80,3 @@ Viewer
 Commands
 - Table Name: `commands`
 - Field Names: `id` [primary key, autoincrement, not null, integer], `command` [not null, text], `text` [not null, longtext], `auth` [default: 1, integer]
-
-## LoyaltyBot In Action
-ArcherBot - [Chiffre2435](http://www.twitch.tv/chiffre2435)<br>CookieMonsterBot - [Minerva_dh](http://www.twitch.tv/minerva_dh)<br>InternetBot - [Izlsnizzt](http://www.twitch.tv/izlsnizzt)<br>KarmaBot - [itsfabiotime](http://www.twitch.tv/itsfabiotime)<br>Knowledge_Bot - [Illicitmedia](http://www.twitch.tv/illicitmedia)<br>XBucksBot - [Linexnick](http://www.twitch.tv/linexnick)  
-
-If you're using LoyaltyBot send me a [twitch message](http://www.twitch.tv/message/compose?to=rvca18) so I can add you to this list!
