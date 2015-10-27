@@ -4,10 +4,11 @@ A TwitchTV viewer reward system
 Written in JavaScript and Node
 
 ## Overview
-LoyaltyBot 'HmBU' (pronounced Himboo) Edition is a chat bot that allows you to reward viewers with EXPERIENCE points for hanging out on your stream. It's main purpose is to allow you, the broadcaster, to reward the viewers that are dedicated to watching your stream as opposed to the viewers that just stop by for a quick giveaway and leave (because fuck those guys).
+LoyaltyBot 'HmBU' (pronounced Himboo) Edition is a chat bot that allows you to reward viewers with EXPERIENCE points for hanging out on your stream. It's main purpose is to allow you, the broadcaster, to reward the viewers that are dedicated to watching your stream as opposed to the viewers that just stop by for a quick giveaway and leave (because fuck those guys, amirite?).
 
 ####Features
 - Possibly functioning auction and raffle systems (haven't tested them, but the codes there)
+- Email integration using the ever so awesome [Nodemailer](https://github.com/andris9/Nodemailer)
 
 ####Extras
 - Moderator commands (semi functional)
