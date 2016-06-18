@@ -23,13 +23,13 @@ loyaltybot.initialize({
     // twitch info
     twitch : {
         channel     : 'loyalty',
-        bot         : {name: 'LoyaltyBot', password: 'loyalty!loyalty!loyalty!'},
+        bot         : {name: 'LoyaltyBot', password: 'OAUTH TOKEN'}, // Get your token from http://twitchapps.com/tmi/
     },
 
     // currency info
     currency : {
         name     : 'Points',
-        payrate  : 15,
+        payrate  : 15, // every minute
         host     : '127.0.0.1',
         user     : 'mysql_user',
         password : 'mysql_password',
